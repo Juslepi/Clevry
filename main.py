@@ -1,4 +1,9 @@
 import urllib.parse
+import os
+import module
+
+def clear_console():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def clean_url(url):
     url = url.replace("https://www.google.com/maps/dir/", '')
@@ -16,12 +21,17 @@ def keep_cleaning(url):
     url = url.replace("/", " -> ")
     return url
 
-mapUrl = input("URL: ")
+while True:
+    clear_console()
+    # mapUrl = input("URL: ")
+    mapUrl = module.copy_from_clipboard()
 
-mapUrl = clean_url(mapUrl)
-mapUrl = keep_cleaning(mapUrl)
+    mapUrl = clean_url(mapUrl)
+    mapUrl = keep_cleaning(mapUrl)
+    
+    module.copy_to_clipboard(f"Sathva asennukset\nAjoreitti: {urllib.parse.unquote(mapUrl)}")
 
-print("\n")
-print(f'Sathva asennukset \nAjoreitti: {urllib.parse.unquote(mapUrl)}')
+    print("\n")
+    print(f'Sathva asennukset \nAjoreitti: {urllib.parse.unquote(mapUrl)}')
 
-input("\n Enter to continue")
+    input("\nEnter to continue")
